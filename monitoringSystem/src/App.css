@@ -1,0 +1,71 @@
+.content{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 50px;
+    
+}
+
+.homeHeading{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    
+}
+
+.userContent{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.allContent{
+    margin-left: 170px;
+    margin-top: 90px;
+}
+
+
+.fcontent{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+}
+
+.fcontent p{
+    font-size: x-large;
+    text-decoration: underline;
+    color: blue;
+    margin-bottom: 50px;
+}
+
+.clubIncharge{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 50px;
+}
+
+.inchargeImg{
+    border-radius: 10px;
+    height: 200px;
+}
+
+
+.qrInfo{
+    text-align: center;
+    
+}
+
+.qrInfo2 {
+    background-color: aliceblue;
+    box-shadow: 3px 3px 8px rgb(158, 156, 156);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.feedbackformbtn{
+    padding: 4px 20px 4px 20px;
+}

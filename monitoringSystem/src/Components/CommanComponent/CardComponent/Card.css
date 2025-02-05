@@ -1,0 +1,24 @@
+.cardComponent{
+    display: flex;
+    width: 400px;
+    height: 300px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px grey;
+    overflow-y: auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+}
+
+.cardContent{
+    padding: 10%;    
+}
+
+.cardComponent:hover .hoverContent{
+    display: flex;
+}
+
+.hoverContent{
+    display: none;
+}
