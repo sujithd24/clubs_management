@@ -1,15 +1,22 @@
 import Table from "../../Components/CommanComponent/Table/Table";
-
+import axios from "axios";
+import { useState , useEffect } from "react";
 
 const Events = () => {
+    const [ userData , setUserData ] = useState([]);
 
-    const userData = [
-        {el1:"Club name" , el2:"Event Name" ,el3:"Date",el4:"Activities"},
-        {el1:"Club name" , el2:"Event Name" ,el3:"Date",el4:"Activities"},
-        {el1:"Club name" , el2:"Event Name" ,el3:"Date",el4:"Activities"},
-        {el1:"Club name" , el2:"Event Name" ,el3:"Date",el4:"Activities"},
-        {el1:"Club name" , el2:"Event Name" ,el3:"Date",el4:"Activities"},
-        ]
+    useEffect(() => {
+      (async () => {
+          try {
+              const res = await axios.get(`http://localhost:5000/api/event`);
+              setUserData(res.data)
+          } catch (error) {
+              console.error(error);
+          }
+      })();
+  }, []);
+
+   
     
     const tableHeading = [
         "Club Name","Event Name","Date","Activities","","","",

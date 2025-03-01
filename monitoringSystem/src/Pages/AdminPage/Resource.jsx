@@ -1,15 +1,24 @@
 import Table from "../../Components/CommanComponent/Table/Table";
-
+import axios from "axios";
+import { useState , useEffect } from "react";
 
 const Resource = () => {
-    const userData = [
-        {el1:"Allocate Budgets" , el2:"Track Expenditures" ,el3:"Total Fund",el4:"Fund Used"},
-        {el1:"Allocate Budgets" , el2:"Track Expenditures" ,el3:"Total Fund",el4:"Fund Used"},
-        {el1:"Allocate Budgets" , el2:"Track Expenditures" ,el3:"Total Fund",el4:"Fund Used"},
-        ]
+    const [ userData , setUserData ] = useState([]);
+
+    useEffect(() => {
+      (async () => {
+          try {
+              const res = await axios.get(`http://localhost:5000/api/fund`);
+              setUserData(res.data)
+              console.log(res.data)
+          } catch (error) {
+              console.error(error);
+          }
+      })();
+  }, []);
     
     const tableHeading = [
-        "Allocate Budgets","Track Expenditures","Total Fund","Fund Used","","",""
+        "Allocate Budgets","Used Fund","Fund Remaining","","",""
       ]
 
     const tablebutton = {

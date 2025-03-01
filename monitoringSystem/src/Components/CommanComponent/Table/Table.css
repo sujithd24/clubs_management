@@ -24,16 +24,18 @@
     text-align: center;
 }
 
-.tableButton {
-    width: 5%;
+.btnflex {
+    display: flex;
     border-radius: 5px;
     background-color: #a5a5a6;
     cursor: pointer;
+    padding: 5px;
+    justify-content: center;
+    align-content: center;
 }
 
-.tableButton:hover{
+.btnflex:hover{
     border-radius: 5px;
     background-color: #a5a5a698;
 
 }
-

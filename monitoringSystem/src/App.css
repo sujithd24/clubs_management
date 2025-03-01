@@ -32,6 +32,7 @@
     flex-direction: column;
     width: 100%;
     text-align: center;
+    align-items: center;
 }
 
 .fcontent p{
@@ -46,6 +47,7 @@
     width: 100%;
     justify-content: space-around;
     margin-bottom: 50px;
+    margin-top: 50px;
 }
 
 .inchargeImg{

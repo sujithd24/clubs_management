@@ -19,11 +19,11 @@ export const AuthProvider = ({children}) => {
        if (res.data.usertype === 'admin') {
          setUserType({ ...userType, isAdmin: true });
         
-       } else if (res.data.usertype === 'user') {
-         setUserType({ ...userType, isUser: true });
+       } else if (res.data.usertype === 'faculty') {
+         setUserType({ ...userType, isFaculty: true });
         
-       } else if (res.data.usertype === 'librarian') {
-         setUserType({ ...userType, isLib: true });
+       } else if (res.data.usertype === 'student') {
+         setUserType({ ...userType, isStudent: true });
         
        }
       
@@ -38,7 +38,7 @@ export const AuthProvider = ({children}) => {
   };
 
   const logout = () => {
-    setUserType({ isAdmin: false, isUser: false, isLib: false });
+    setUserType({ isAdmin: false, isFaculty: false, isStudent: false });
   };
 
   return (
