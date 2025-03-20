@@ -16,17 +16,17 @@ app.use(session({
     resave: false, 
     saveUninitialized: true, 
     cookie: { 
-        secure: true,
+        secure: false,
         maxAge: 60*60*1000
      }
     }));
 
 
 
-
+const origins = ['http://localhost:3001','http://localhost:3000']
 
 app.use(cors({ 
-    origin: 'http://localhost:3000', 
+    origin: origins , 
     credentials: true 
 }))
 app.use(express.json())
@@ -44,15 +44,23 @@ mongoose.connect(process.env.DB_URL).then(
     }
 )
 
-const userRoutes = require('./routes/user')
-const clubRoutes = require('./routes/clubs')
-const fundRoutes = require('./routes/funds')
-const societyRoutes = require('./routes/society')
+const userRoutes = require('./routes/user');
+const clubRoutes = require('./routes/clubs');
+const fundRoutes = require('./routes/funds');
+const eventRoutes = require('./routes/events');
+const reportRoutes = require('./routes/report');
+const attendanceRoutes = require('./routes/attendance');
+const pdfRoutes = require('./routes/pdfRoutes');
+const feedbackRoutes = require('./routes/feedback')
 
-app.use('/api/user', userRoutes)
-app.use('/api/club', clubRoutes)
-app.use('/api/fund', fundRoutes)
-app.use('/api/society', societyRoutes)
+app.use('/api/user', userRoutes);
+app.use('/api/club', clubRoutes);
+app.use('/api/fund', fundRoutes);
+app.use('/api/event', eventRoutes);
+app.use('/api/report', reportRoutes);
+app.use('/api/attendance',attendanceRoutes);
+app.use('/api/pdf', pdfRoutes);
+app.use('/api/feedback',feedbackRoutes);
 
 
 app.listen(Port ,()=>{

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AuthData } from './AuthContext';
 import './form.css';
 import { useNavigate } from 'react-router-dom';
-
+import bitlogo from "../../assets/bit-logo.png";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -34,7 +34,10 @@ const Login = () => {
     <div>
     <div className="login-container">
       <form onSubmit={handleLogin} className="login-form">
+        <div style={{display:"flex",gap:"10px",justifyContent:"center",alignItems:"center"}}>
+        <img src={bitlogo} height={"70px"}/>
         <h2>Login</h2>
+        </div>
         <div className="input-group">
           <label htmlFor="username">Username</label>
           <input

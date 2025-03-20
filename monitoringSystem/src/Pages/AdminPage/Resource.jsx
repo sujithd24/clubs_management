@@ -18,7 +18,7 @@ const Resource = () => {
   }, []);
     
     const tableHeading = [
-        "Allocate Budgets","Used Fund","Fund Remaining","","",""
+        "ClubName","Allocate Budgets","Used Fund","Fund Remaining","","",""
       ]
 
     const tablebutton = {

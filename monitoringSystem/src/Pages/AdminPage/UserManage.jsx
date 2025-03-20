@@ -10,7 +10,7 @@ const UserManage =() => {
         try {
             const res = await axios.get(`http://localhost:5000/api/user`);
             setUserData(res.data)
-            console.log(res);
+            console.log(res.data);
         } catch (error) {
             console.error(error);
         }

@@ -1,19 +1,25 @@
 import Table from "../../Components/CommanComponent/Table/Table";
-
+import { useState , useEffect } from "react";
+import axios from "axios";
 
 const Report = () => {
 
-    const userData = [
-        {el1:"Participated in events" , el2:"3" ,el3:"10",el4:null},
-        {el1:"Participated in events" , el2:"3" ,el3:"10",el4:null},
-        {el1:"Participated in events" , el2:"3" ,el3:"10",el4:null},
-        {el1:"Participated in events" , el2:"3" ,el3:"10",el4:null},
-        {el1:"Participated in events" , el2:"3" ,el3:"10",el4:null},
-        {el1:"Participated in events" , el2:"3" ,el3:"10",el4:null},
-        ]
+    const [ userData , setUserData ] = useState([]);
+
+    useEffect(() => {
+      (async () => {
+          try {
+              const res = await axios.get(`http://localhost:5000/api/report`);
+              setUserData(res.data)
+              console.log(res.data)
+          } catch (error) {
+              console.error(error);
+          }
+      })();
+  }, []);
     
     const tableHeading = [
-        "Participations","Monthly Events","Overall Performance(Out Of 10)","","","",
+        "Club Name","Participations","Monthly Events","Overall Performance(Out Of 10)","","","",
       ]
 
     const tablebutton = {

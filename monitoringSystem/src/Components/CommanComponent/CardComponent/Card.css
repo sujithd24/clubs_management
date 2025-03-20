@@ -3,7 +3,7 @@
     width: 400px;
     height: 300px;
     border-radius: 5px;
-    box-shadow: 5px 5px 10px grey;
+    box-shadow: 5px 5px 10px rgb(30, 30, 30);
     overflow-y: auto;
     justify-content: center;
     align-items: center;
@@ -17,6 +17,11 @@
 
 .cardComponent:hover .hoverContent{
     display: flex;
+    
+}
+
+.cardComponent:hover{
+    background-color: #f1f1f1;
 }
 
 .hoverContent{

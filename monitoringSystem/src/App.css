@@ -21,11 +21,6 @@
     flex-direction: column;
 }
 
-.allContent{
-    margin-left: 170px;
-    margin-top: 90px;
-}
-
 
 .fcontent{
     display: flex;
@@ -70,4 +65,15 @@
 
 .feedbackformbtn{
     padding: 4px 20px 4px 20px;
+    background-color: #1e1e1e;
+}
+
+.feedbackformbtn:hover{
+    background-color: #3b3c44;
+}
+
+.logoAdmin{
+    position: absolute;
+    margin-left: -1200px;
+    margin-top: 10px;
 }
