@@ -6,6 +6,10 @@ const FundSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  clubName: {
+    type: String,
+    required: true,
+  },
   usedFund: {
     type: Number,
     required: true,

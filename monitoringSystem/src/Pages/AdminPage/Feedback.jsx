@@ -1,16 +1,24 @@
+import { Typography } from "@mui/material";
 import Table from "../../Components/CommanComponent/Table/Table";
-
+import axios from "axios";
+import { useState , useEffect } from "react";
 
 const Feedback = () => {
 
-    const userData = [
-        {el1:"Club name" , el2:"00/00/0000" ,el3:"Feedback",el4:null},
-        {el1:"Club name" , el2:"00/00/0000" ,el3:"Feedback",el4:null},
-        {el1:"Club name" , el2:"00/00/0000" ,el3:"Feedback",el4:null},
-        {el1:"Club name" , el2:"00/00/0000" ,el3:"Feedback",el4:null},
-        {el1:"Club name" , el2:"00/00/0000" ,el3:"Feedback",el4:null},
-        {el1:"Club name" , el2:"00/00/0000" ,el3:"Feedback",el4:null},
-        ]
+    const [ userData , setUserData ] = useState([]);
+
+    useEffect(() => {
+      (async () => {
+          try {
+              const res = await axios.get(`http://localhost:5000/api/feedback`);
+              setUserData(res.data)
+              console.log(res.data)
+          } catch (error) {
+              console.error(error);
+          }
+      })();
+  }, []);
+
     
     const tableHeading = [
         "Club Name","Date","Feedback","","","",
@@ -25,6 +33,9 @@ const Feedback = () => {
     return(
         <div className="allContent">
             <div className="userContent">
+            <Typography variant="h4" fontWeight="bold" textAlign="center" mt={2} color="primary">
+        Feedback 
+      </Typography>
                 <Table userData={userData} tableHeading={tableHeading} tableButton={tablebutton} />
             </div>
         </div>

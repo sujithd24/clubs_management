@@ -1,19 +1,25 @@
 import Table from "../../Components/CommanComponent/Table/Table";
-
+import axios from "axios";
+import { useState , useEffect } from "react";
+import {Typography} from '@mui/material';
 
 const Attendance = () => {
+   const [ userData , setUserData ] = useState([]);
 
-    const userData = [
-        {el1:"Event Name" , el2:"Name" ,el3:"Roll Number",el4:"Attendance"},
-        {el1:"Event Name" , el2:"Name" ,el3:"Roll Number",el4:"Attendance"},
-        {el1:"Event Name" , el2:"Name" ,el3:"Roll Number",el4:"Attendance"},
-        {el1:"Event Name" , el2:"Name" ,el3:"Roll Number",el4:"Attendance"},
-        {el1:"Event Name" , el2:"Name" ,el3:"Roll Number",el4:"Attendance"},
-        {el1:"Event Name" , el2:"Name" ,el3:"Roll Number",el4:"Attendance"},
-        ]
+    useEffect(() => {
+      (async () => {
+          try {
+              const res = await axios.get(`http://localhost:5000/api/attendance`);
+              setUserData(res.data)
+              console.log(res.data)
+          } catch (error) {
+              console.error(error);
+          }
+      })();
+  }, []);
     
     const tableHeading = [
-        "Event Name","Name","Roll Number","Attendance","","","",""
+        "Club Name","Event Name","Name","Roll Number","Attendance","","","",""
       ]
 
     const tablebutton = {
@@ -25,7 +31,10 @@ const Attendance = () => {
     return(
         <div className="allContent">
             <div className="userContent">
-                <Table userData={userData} tableHeading={tableHeading} tableButton={tablebutton} />
+            <Typography variant="h4" fontWeight="bold" textAlign="center" mt={2} color="primary">
+                Attendance
+            </Typography>
+            <Table userData={userData} tableHeading={tableHeading} tableButton={tablebutton} />
             </div>
         </div>
     )

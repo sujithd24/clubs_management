@@ -3,12 +3,11 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f2f5;
-    
-  }
+    background-color: #eef1f9 ;
+     }
   
   .login-form {
-    background: #fff;
+    background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -19,7 +18,7 @@
   .login-form h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: #000000;
   }
   
   .input-group {
@@ -29,21 +28,23 @@
   .input-group label {
     display: block;
     margin-bottom: 5px;
-    color: #555;
+    color: #aaa4a0;
   }
   
   .input-group input {
-    width: 90%;
+    width: 95%;
     padding: 8px;
+    color: #000000;
     border: 1px solid #ccc;
     border-radius: 4px;
+    background-color: #eef1f9;
   }
   
   .login-button {
     width: 100%;
     padding: 10px;
-    background-color: #5356be;
-    color: white;
+    background-color: #7d7dff;
+    color: #ffffff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -51,6 +52,14 @@
   }
   
   .login-button:hover {
-    background-color: #5356be;
+    background-color: #9898fd;
   }
   
+  .googleBtn{
+    display: flex;
+    border-radius: 30px;
+    cursor: pointer;
+    height: 50px;
+    align-items: center;
+    margin-top: 5px;
+  }

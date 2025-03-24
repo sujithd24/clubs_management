@@ -1,15 +1,25 @@
 import Table from "../../Components/CommanComponent/Table/Table";
-
+import axios from "axios";
+import { useState , useEffect } from "react";
+import {Typography} from '@mui/material';
 
 const Resource = () => {
-    const userData = [
-        {el1:"Allocate Budgets" , el2:"Track Expenditures" ,el3:"Total Fund",el4:"Fund Used"},
-        {el1:"Allocate Budgets" , el2:"Track Expenditures" ,el3:"Total Fund",el4:"Fund Used"},
-        {el1:"Allocate Budgets" , el2:"Track Expenditures" ,el3:"Total Fund",el4:"Fund Used"},
-        ]
+    const [ userData , setUserData ] = useState([]);
+
+    useEffect(() => {
+      (async () => {
+          try {
+              const res = await axios.get(`http://localhost:5000/api/fund`);
+              setUserData(res.data)
+              console.log(res.data)
+          } catch (error) {
+              console.error(error);
+          }
+      })();
+  }, []);
     
     const tableHeading = [
-        "Allocate Budgets","Track Expenditures","Total Fund","Fund Used","","",""
+        "ClubName","Allocate Budgets","Used Fund","Fund Remaining","","",""
       ]
 
     const tablebutton = {
@@ -21,6 +31,9 @@ const Resource = () => {
     return(
         <div className="allContent">
             <div className="userContent">
+            <Typography variant="h4" fontWeight="bold" textAlign="center" mt={2} color="primary">
+            Resource Oversight
+      </Typography>
                 <Table userData={userData} tableHeading={tableHeading} tableButton={tablebutton} />
             </div>
         </div>

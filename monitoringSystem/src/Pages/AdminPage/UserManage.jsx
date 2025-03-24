@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Table from '../../Components/CommanComponent/Table/Table';
 import axios from 'axios';
+import {Typography} from '@mui/material'
 
 const UserManage =() => {
   const [ userData , setUserData ] = useState([]);
@@ -10,7 +11,7 @@ const UserManage =() => {
         try {
             const res = await axios.get(`http://localhost:5000/api/user`);
             setUserData(res.data)
-            console.log(res);
+            console.log(res.data);
         } catch (error) {
             console.error(error);
         }
@@ -30,6 +31,9 @@ const UserManage =() => {
     return(
         <div className="allContent">
          <div className="userContent">           
+         <Typography variant="h4" fontWeight="bold" textAlign="center" mt={2} color="primary">
+        User Management
+      </Typography>
           <Table userData={userData} tableHeading={tableHeading} tableButton={tablebutton} />          
          </div>
         </div>

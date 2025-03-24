@@ -1,19 +1,24 @@
 import Table from "../../Components/CommanComponent/Table/Table";
-
+import axios from "axios";
+import { useState , useEffect } from "react";
 
 const EventList = () => {
+    const [ userData , setUserData ] = useState([]);
 
-    const userData = [
-        {el1:"Event Name" , el2:"Date" ,el3:"Activities",el4:"Participation",el5:"Amount Spend"},
-        {el1:"Event Name" , el2:"Date" ,el3:"Activities",el4:"Participation",el5:"Amount Spend"},
-        {el1:"Event Name" , el2:"Date" ,el3:"Activities",el4:"Participation",el5:"Amount Spend"},
-        {el1:"Event Name" , el2:"Date" ,el3:"Activities",el4:"Participation",el5:"Amount Spend"},
-        {el1:"Event Name" , el2:"Date" ,el3:"Activities",el4:"Participation",el5:"Amount Spend"},
-        {el1:"Event Name" , el2:"Date" ,el3:"Activities",el4:"Participation",el5:"Amount Spend"},
-        ]
+    useEffect(() => {
+      (async () => {
+          try {
+              const res = await axios.get(`http://localhost:5000/api/event`);
+              setUserData(res.data)
+              console.log(res.data)
+          } catch (error) {
+              console.error(error);
+          }
+      })();
+  }, []);
     
     const tableHeading = [
-        "Event Name","Date","Activities","Participation","Amount Spend","","",""
+        "Event Name","Activities","Date","Participation","Amount Spend","","",""
       ]
 
     const tablebutton = {

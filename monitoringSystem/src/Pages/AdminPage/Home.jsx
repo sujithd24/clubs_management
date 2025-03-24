@@ -1,5 +1,5 @@
 import Card from "../../Components/CommanComponent/CardComponent/Card";
-
+import bitlogo from "../../assets/bit-logo.png"
 
 const AdminHome = () => {
    
@@ -44,9 +44,10 @@ const AdminHome = () => {
 
     return (
         <div className="allContent">
-            <div className="content">
-               
-                <h1 className="homeHeading">Clubs</h1>
+            <div className="content" style={{marginLeft:"-10px"}}>
+            <img src={bitlogo} alt="a" height={"70px"} className="logoAdmin"/>
+                <h1 className="homeHeading">
+                    Clubs</h1>
                 {
                     list.map(
                         (c, i) => {

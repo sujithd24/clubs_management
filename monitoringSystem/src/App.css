@@ -12,6 +12,7 @@
     display: flex;
     width: 100%;
     justify-content: center;
+    color: #1976d2;
     
 }
 
@@ -21,17 +22,13 @@
     flex-direction: column;
 }
 
-.allContent{
-    margin-left: 170px;
-    margin-top: 90px;
-}
-
 
 .fcontent{
     display: flex;
     flex-direction: column;
     width: 100%;
     text-align: center;
+    align-items: center;
 }
 
 .fcontent p{
@@ -46,6 +43,7 @@
     width: 100%;
     justify-content: space-around;
     margin-bottom: 50px;
+    margin-top: 50px;
 }
 
 .inchargeImg{
@@ -68,4 +66,15 @@
 
 .feedbackformbtn{
     padding: 4px 20px 4px 20px;
+    background-color: #1e1e1e;
+}
+
+.feedbackformbtn:hover{
+    background-color: #3b3c44;
+}
+
+.logoAdmin{
+    position: absolute;
+    margin-left: -1200px;
+    margin-top: 10px;
 }

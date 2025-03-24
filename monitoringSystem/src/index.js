@@ -4,12 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './Components/AuthComponent/AuthContext';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import theme from './Components/ThemeComponent/ThemeComponent';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <App/>
+      <ThemeProvider theme={theme}>
+        <CssBaseline/>
+       <App/>
+      </ThemeProvider>
     </AuthProvider>
   </React.StrictMode>
 );
