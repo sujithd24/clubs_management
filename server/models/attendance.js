@@ -20,7 +20,8 @@ const AttendanceSchema = new mongoose.Schema({
   },
   attendance: {
     type: String,
-    required: true,
+    required: false,
+    default:"Absent"
   },
 });
 

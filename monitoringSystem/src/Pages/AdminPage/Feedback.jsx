@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import Table from "../../Components/CommanComponent/Table/Table";
 import axios from "axios";
 import { useState , useEffect } from "react";
@@ -32,6 +33,9 @@ const Feedback = () => {
     return(
         <div className="allContent">
             <div className="userContent">
+            <Typography variant="h4" fontWeight="bold" textAlign="center" mt={2} color="primary">
+        Feedback 
+      </Typography>
                 <Table userData={userData} tableHeading={tableHeading} tableButton={tablebutton} />
             </div>
         </div>

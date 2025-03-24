@@ -28,7 +28,7 @@ const PdfUploadForm = () => {
   const [success, setSuccess] = useState(false);
   
   // Check if the first 3 files (required) are present
-  const isSubmitEnabled = files.length >= 3;
+  const isSubmitEnabled = files.length >= 1;
   
   const handleFileChange = (event) => {
     const newFiles = Array.from(event.target.files);
@@ -51,10 +51,9 @@ const PdfUploadForm = () => {
     event.preventDefault();
     
     if (!isSubmitEnabled) {
-      setError('First 3 PDF files are required');
+      setError('First 1 PDF files are required');
       return;
     }
-    
     setUploading(true);
     setError('');
     
@@ -84,13 +83,18 @@ const PdfUploadForm = () => {
   };
   
   return (
+    <Box>
+<Typography variant="h4" fontWeight="bold" textAlign="center" mt={2} color="primary">
+        Upload Club Documents
+      </Typography>
     <Paper elevation={3} sx={{ p: 3, maxWidth: 600, mx: 'auto', mt: 4 }}>
+      
       <Typography variant="h5" gutterBottom>
-        PDF Upload Form
+        PDF Upload File
       </Typography>
       
       <Typography variant="body2" color="text.secondary" gutterBottom>
-        Please upload up to 5 PDF files. The first 3 files are required.
+        Please upload up to 5 PDF files. The first 1 files are required.
       </Typography>
       
       <Box sx={{ my: 2 }}>
@@ -102,14 +106,14 @@ const PdfUploadForm = () => {
           multiple
           onChange={handleFileChange}
           disabled={uploading || files.length >= 5}
-        />
+          />
         <label htmlFor="pdf-upload-input">
           <Button
             variant="contained"
             component="span"
             startIcon={<UploadIcon />}
             disabled={uploading || files.length >= 5}
-          >
+            >
             Select PDF Files
           </Button>
         </label>
@@ -119,32 +123,32 @@ const PdfUploadForm = () => {
         <List>
           {files.map((file, index) => (
             <ListItem
-              key={index}
-              secondaryAction={
-                <IconButton 
-                  edge="end" 
-                  aria-label="delete"
-                  onClick={() => handleRemoveFile(index)}
-                  disabled={uploading}
-                >
+            key={index}
+            secondaryAction={
+              <IconButton 
+              edge="end" 
+              aria-label="delete"
+              onClick={() => handleRemoveFile(index)}
+              disabled={uploading}
+              >
                   <DeleteIcon />
                 </IconButton>
               }
               sx={{
-                bgcolor: index < 3 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
-                border: index < 3 ? '1px solid #4caf50' : 'none',
+                bgcolor: index < 1 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                border: index < 1 ? '1px solid #4caf50' : 'none',
                 borderRadius: 1,
                 mb: 1
               }}
-            >
+              >
               <ListItemIcon>
                 <PdfIcon color="error" />
               </ListItemIcon>
               <ListItemText 
                 primary={file.name} 
                 secondary={`${(file.size / 1024 / 1024).toFixed(2)} MB`} 
-              />
-              {index < 3 && (
+                />
+              {index < 1 && (
                 <Typography variant="caption" color="success.main" sx={{ mr: 2 }}>
                   Required
                 </Typography>
@@ -162,7 +166,7 @@ const PdfUploadForm = () => {
               Ready to submit
             </Box>
           ) : (
-            `${Math.max(0, 3 - files.length)} more required file(s) needed`
+            `${Math.max(0, 1 - files.length)} more required file(s) needed`
           )}
         </Typography>
         
@@ -172,7 +176,7 @@ const PdfUploadForm = () => {
           onClick={handleSubmit}
           disabled={!isSubmitEnabled || uploading}
           startIcon={uploading ? <CircularProgress size={20} /> : null}
-        >
+          >
           {uploading ? 'Processing...' : 'Submit'}
         </Button>
       </Box>
@@ -182,7 +186,7 @@ const PdfUploadForm = () => {
         autoHideDuration={6000} 
         onClose={() => setError('')}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
+        >
         <Alert severity="error" onClose={() => setError('')}>
           {error}
         </Alert>
@@ -193,12 +197,13 @@ const PdfUploadForm = () => {
         autoHideDuration={6000} 
         onClose={() => setSuccess(false)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
+        >
         <Alert severity="success" onClose={() => setSuccess(false)}>
           PDFs uploaded and merged successfully!
         </Alert>
       </Snackbar>
     </Paper>
+        </Box>
   );
 };
 

@@ -23,7 +23,7 @@ app.use(session({
 
 
 
-const origins = ['http://localhost:3001','http://localhost:3000']
+const origins = ['http://localhost:3000','http://localhost:3001']
 
 app.use(cors({ 
     origin: origins , 
@@ -51,7 +51,8 @@ const eventRoutes = require('./routes/events');
 const reportRoutes = require('./routes/report');
 const attendanceRoutes = require('./routes/attendance');
 const pdfRoutes = require('./routes/pdfRoutes');
-const feedbackRoutes = require('./routes/feedback')
+const feedbackRoutes = require('./routes/feedback');
+const clubDetailRoutes = require('./routes/clubDetails');
 
 app.use('/api/user', userRoutes);
 app.use('/api/club', clubRoutes);
@@ -61,6 +62,7 @@ app.use('/api/report', reportRoutes);
 app.use('/api/attendance',attendanceRoutes);
 app.use('/api/pdf', pdfRoutes);
 app.use('/api/feedback',feedbackRoutes);
+app.use('/api/clubdetail',clubDetailRoutes);
 
 
 app.listen(Port ,()=>{

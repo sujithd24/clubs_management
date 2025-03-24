@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   });
 
   const [user, setUser] = useState(() => localStorage.getItem('user') || '');
+  const [fetchid , setFetchid] = useState([]);
 
   useEffect(() => {
     localStorage.setItem('userType', JSON.stringify(userType));
@@ -41,6 +42,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const addValue = async(eventdata) =>{
+    setFetchid(eventdata);
+  } 
+
   const logout = () => {
     setUserType({ isAdmin: false, isFaculty: false, isStudent: false });
     setUser('');
@@ -49,7 +54,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ userType,setUserType, user, login, logout }}>
+    <AuthContext.Provider value={{ userType,setUserType, user, login, logout ,fetchid , setFetchid , addValue}}>
       {children}
     </AuthContext.Provider>
   );

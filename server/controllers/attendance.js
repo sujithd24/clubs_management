@@ -57,3 +57,28 @@ exports.deleteAttendance = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+exports.markAttendance = async (req, res) => {
+  try {
+    const { name, rollNumber, clubName, eventName } = req.body;
+
+    if (!name || !rollNumber || !clubName || !eventName) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    let record = await Attendance.findOne({ rollno: rollNumber, eventName });
+
+    if (record) {
+      record.attendance = "Present";
+      await record.save();
+    } else {
+      record = new Attendance({ name, rollno: rollNumber, clubName, eventName, attendance: "Present" });
+      await record.save();
+    }
+
+    res.status(200).json({ message: "Attendance marked successfully", record });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

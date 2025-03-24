@@ -17,6 +17,10 @@ import {
   Logout,
   Settings,
   AccountCircle,
+  Dashboard,
+  ReceiptLong,
+  UploadFile,
+  QrCode,
 } from "@mui/icons-material";
 import { Link, useLocation, Outlet } from "react-router-dom";
 import { AuthData } from "../AuthComponent/AuthContext";
@@ -44,28 +48,30 @@ export default function AppSidebar() {
 
   const navLinks = {
     admin: [
-      { icon: <Book />, label: "Dashboard", href: "/" },
+      { icon: <Dashboard />, label: "Dashboard", href: "/" },
       { icon: <AccountCircle />, label: "User Management", href: "/usermanagement" },
       { icon: <BusinessCenter />, label: "Event Oversight", href: "/event" },
-      { icon: <Book />, label: "Resource Oversight", href: "/resource" },
+      { icon: <ReceiptLong/>, label: "Resource Oversight", href: "/resource" },
       { icon: <AttachMoney />, label: "Report", href: "/report" },
       { icon: <Settings />, label: "Feedback", href: "/feedback" },
       { icon: <Book />, label: "Documents", href: "/pdfdisplay" },
     ],
     faculty: [
-      { icon: <Book />, label: "Dashboard", href: "/" },
+      { icon: <Dashboard />, label: "Dashboard", href: "/" },
       { icon: <BusinessCenter />, label: "Event", href: "/event" },
       { icon: <AccountCircle />, label: "Attendance", href: "/attendance" },
-      { icon: <Book />, label: "UploadPDF", href: "/members" },
+      { icon: <UploadFile />, label: "UploadPDF", href: "/members" },
       { icon: <Book />, label: "Documents", href: "/pdfdisplay" },
       { icon: <Settings />, label: "Feedback", href: "/feedback" },
+      { icon: <QrCode />, label: "QR Code", href: "/qr" },
     ],
     student: [
-      { icon: <Book />, label: "Dashboard", href: "/" },
-      { icon: <BusinessCenter />, label: "Event Calendar", href: "/eventclander" },
-       { icon: <AccountCircle />, label: "Feedback", href: "/feedback" },
-      // { icon: <Book />, label: "QR Code", href: "/qrcode" },
+      { icon: <Dashboard />, label: "Dashboard", href: "/" },
+      { icon: <Book />, label: "Event Calendar", href: "/eventclander" },
+      { icon: <BusinessCenter />, label: "Participate", href: "/participation" },
+      { icon: <AccountCircle />, label: "Feedback", href: "/feedback" },       
       { icon: <Settings />, label: "FeedbackForm", href: "/feedbackform" },
+      { icon: <QrCode />, label: "QR Code", href: "/qrcode" },
     ],
   };
   const currentNavLinks = navLinks[user] || [];

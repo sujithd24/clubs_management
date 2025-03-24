@@ -18,14 +18,14 @@ exports.uploadAndMergePdfs = async (req, res) => {
       return res.status(400).json({ message: 'No files uploaded' });
     }
     
-    if (files.length < 3) {
+    if (files.length < 1) {
       // Clean up uploaded files
       files.forEach(file => {
         if (fs.existsSync(file.path)) {
           fs.unlinkSync(file.path);
         }
       });
-      return res.status(400).json({ message: 'At least 3 PDF files are required' });
+      return res.status(400).json({ message: 'At least 1 PDF files are required' });
     }
     
     // Validate file types

@@ -19,6 +19,8 @@ import FeedbackForm from './Pages/StudentPage/Feedback';
 import AppSidebar from './Components/LayoutComponent/LayoutComponent';
 import PdfUploadForm from './Pages/FacultyPage/pdfupload';
 import PDFListComponent from './Pages/FacultyPage/pdfDisplay';
+import Sdashboard from './Pages/StudentPage/dashbord';
+import QRGenerator from './Components/CommanComponent/QrGenerator/QrGenerator';
 
 function App() {
 
@@ -29,7 +31,7 @@ function App() {
         <Routes>
           <Route path='/login' element={(userType.isAdmin && <Navigate to="/" />) || (userType.isFaculty && <Navigate to="/" />) || (userType.isStudent && <Navigate to="/" />) || <Login/>} />
           <Route path='/' element={<AppSidebar/>} >
-            <Route index element={(userType.isAdmin && <AdminHome/>) || ((userType.isFaculty || userType.isStudent ) && <Fdashbord/> )  || <Navigate to="/login" /> }/>
+            <Route index element={(userType.isAdmin && <AdminHome/>) || ((userType.isFaculty  ) && <Fdashbord/> ) || userType.isStudent && <Sdashboard/>  || <Navigate to="/login" /> }/>
            
             {//Admin routes
             }
@@ -46,15 +48,15 @@ function App() {
             <Route path='attendance' element={(userType.isFaculty && <Attendance/>) ||<Navigate to="/login" />}/>
             <Route path='members' element={(userType.isFaculty && <PdfUploadForm/>) ||<Navigate to="/login" />}/>
             <Route path='pdfdisplay' element={((userType.isFaculty || userType.isAdmin) && <PDFListComponent/>) ||<Navigate to="/login" />}/>
+            <Route path='qr' element={(userType.isFaculty && <QRGenerator/>) ||<Navigate to="/login" />}/>
 
             {/* Student Routes */}
 
-            <Route path='eventclander' element={(userType.isStudent && <Attendance/>) ||<Navigate to="/login" />}/>
-            <Route path='participation' element={(userType.isStudent && <Participation/>) ||<Navigate to="/login" />}/>
+            <Route path='eventclander' element={(userType.isStudent && <EventCalander/>) ||<Navigate to="/login" />}/>
+            <Route path='participation' element={(userType.isStudent && <Attendance/>) ||<Navigate to="/login" />}/>
             <Route path='qrcode' element={(userType.isStudent && <QrScanner/>) ||<Navigate to="/login" />}/>
             <Route path='feedbackform' element={(userType.isStudent && <FeedbackForm/>) ||<Navigate to="/login" />} />
             
-
           </Route>
         </Routes>
       </BrowserRouter>

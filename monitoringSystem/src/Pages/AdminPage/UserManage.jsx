@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Table from '../../Components/CommanComponent/Table/Table';
 import axios from 'axios';
+import {Typography} from '@mui/material'
 
 const UserManage =() => {
   const [ userData , setUserData ] = useState([]);
@@ -30,6 +31,9 @@ const UserManage =() => {
     return(
         <div className="allContent">
          <div className="userContent">           
+         <Typography variant="h4" fontWeight="bold" textAlign="center" mt={2} color="primary">
+        User Management
+      </Typography>
           <Table userData={userData} tableHeading={tableHeading} tableButton={tablebutton} />          
          </div>
         </div>

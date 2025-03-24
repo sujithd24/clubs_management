@@ -6,7 +6,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 const Table = ({ userData, tableHeading, tableButton }) => {
-    const { userType } = AuthData();
+    const { userType , setFetchid , addValue } = AuthData();
     const [isUpdateClick, setUpdateClick] = useState(false);
     const [isCreateClick, setCreateClick] = useState(false);
     const [selectedData, setSelectedData] = useState(null);
@@ -59,8 +59,8 @@ const Table = ({ userData, tableHeading, tableButton }) => {
                         }else if (window.location.href === "http://localhost:3000/attendance"){
                             await axios.delete(`http://localhost:5000/api/attendance/${id}`);
                         window.location.reload();
-                        }else if (window.location.href === "http://localhost:3000/eventlist"){
-                            await axios.delete(`http://localhost:5000/api/event/${id}`);
+                        }else if (window.location.href === "http://localhost:3000/participation"){
+                            await axios.delete(`http://localhost:5000/api/attendance/${id}`);
                         window.location.reload();
                         }else if (window.location.href === "http://localhost:3000/feedback"){
                             await axios.delete(`http://localhost:5000/api/feedback/${id}`);
@@ -83,8 +83,8 @@ const Table = ({ userData, tableHeading, tableButton }) => {
                             } else if (window.location.href === "http://localhost:3001/attendance"){
                                 await axios.delete(`http://localhost:5000/api/attendance/${id}`);
                             window.location.reload();
-                            }else if (window.location.href === "http://localhost:3001/eventlist"){
-                                await axios.delete(`http://localhost:5000/api/event/${id}`);
+                            }else if (window.location.href === "http://localhost:3001/participation"){
+                                await axios.delete(`http://localhost:5000/api/attendance/${id}`);
                             window.location.reload();
                             }else if (window.location.href === "http://localhost:3001/feedback"){
                                 await axios.delete(`http://localhost:5000/api/feedback/${id}`);
@@ -97,6 +97,18 @@ const Table = ({ userData, tableHeading, tableButton }) => {
         } else if (action === "Create") {
             setCreateFormData({}); // Reset form for new entry
             setCreateClick(true);
+        } else if (action === "QR"){
+            if(id){
+                window.localStorage.removeItem("EventData")
+                const res = await axios.get(`http://localhost:5000/api/event/${id}`);
+                await addValue(res.data)
+                window.localStorage.setItem("EventData", JSON.stringify(res.data));
+            }else{
+
+                await addValue([])
+            }
+                window.open("http://localhost:3000/qr");
+
         }
     };
 
@@ -145,8 +157,8 @@ const Table = ({ userData, tableHeading, tableButton }) => {
                     await axios.put(`http://localhost:5000/api/attendance/${id}`, formData);
                 setUpdateClick(false);
                 window.location.reload();
-                }else if (window.location.href === "http://localhost:3000/eventlist"){
-                    await axios.put(`http://localhost:5000/api/event/${id}`, formData);
+                }else if (window.location.href === "http://localhost:3000/participation"){
+                    await axios.put(`http://localhost:5000/api/attendance/${id}`, formData);
                 setUpdateClick(false);
                 window.location.reload();
                 } else if (window.location.href === "http://localhost:3000/feedback"){
@@ -177,8 +189,8 @@ const Table = ({ userData, tableHeading, tableButton }) => {
                     await axios.put(`http://localhost:5000/api/attendance/${id}`, formData);
                 setUpdateClick(false);
                 window.location.reload();
-                }else if (window.location.href === "http://localhost:3001/eventlist"){
-                    await axios.put(`http://localhost:5000/api/event/${id}`, formData);
+                }else if (window.location.href === "http://localhost:3001/participation"){
+                    await axios.put(`http://localhost:5000/api/attendance/${id}`, formData);
                 setUpdateClick(false);
                 window.location.reload();
                 }else if (window.location.href === "http://localhost:3001/feedback"){
@@ -215,8 +227,8 @@ const Table = ({ userData, tableHeading, tableButton }) => {
                 await axios.post('http://localhost:5000/api/attendance', createFormData);
             setCreateClick(false);
             window.location.reload();
-            }else if (window.location.href === "http://localhost:3000/eventlist"){
-                await axios.post('http://localhost:5000/api/event', createFormData);
+            }else if (window.location.href === "http://localhost:3000/participation"){
+                await axios.post('http://localhost:5000/api/attendance', createFormData);
             setCreateClick(false);
             window.location.reload();
             }else if (window.location.href === "http://localhost:3000/eventclander"){
@@ -246,8 +258,8 @@ const Table = ({ userData, tableHeading, tableButton }) => {
                     await axios.post('http://localhost:5000/api/attendance', createFormData);
                 setCreateClick(false);
                 window.location.reload();
-                } else if (window.location.href === "http://localhost:3001/eventlist"){
-                    await axios.post('http://localhost:5000/api/event', createFormData);
+                } else if (window.location.href === "http://localhost:3001/participation"){
+                    await axios.post('http://localhost:5000/api/attendance', createFormData);
                 setCreateClick(false);
                 window.location.reload();
                 } else if ((window.location.href === "http://localhost:3001/eventclander")){
@@ -260,6 +272,78 @@ const Table = ({ userData, tableHeading, tableButton }) => {
         }
     };
 
+    const createHeader = () => {
+        if(window.location.href === "http://localhost:3000/usermanagement"){
+            return("Create new user")
+        } else if (window.location.href === "http://localhost:3000/event"){
+            return("Create new event")
+        } else if (window.location.href === "http://localhost:3000/resource"){
+            return("Create new resource")
+        } else if (window.location.href === "http://localhost:3000/report"){
+            return("Create new report")
+        } else if ((window.location.href === "http://localhost:3000/attendance")){
+            return("Create new attendance")
+        } else if (window.location.href === "http://localhost:3000/participation"){
+            return("Create new attendance")
+        } else if ((window.location.href === "http://localhost:3000/eventclander")){
+            return("Create new ")
+        }
+
+
+        if(window.location.href === "http://localhost:3001/usermanagement"){
+            return("Create new user")
+        } else if (window.location.href === "http://localhost:3001/event"){
+            return("Create new event")
+        } else if (window.location.href === "http://localhost:3001/resource"){
+            return("Create new resource")
+        } else if (window.location.href === "http://localhost:3001/report"){
+            return("Create new report")
+        } else if ((window.location.href === "http://localhost:3001/attendance")){
+            return("Create new attendance")
+        } else if (window.location.href === "http://localhost:3001/participation"){
+            return("Create new attendance")
+        } else if ((window.location.href === "http://localhost:3001/eventclander")){
+            return("Create new ")
+        }
+
+    }
+
+    const updateHeader = () => {
+        if(window.location.href === "http://localhost:3000/usermanagement"){
+            return("Update user")
+        } else if (window.location.href === "http://localhost:3000/event"){
+            return("Update event")
+        } else if (window.location.href === "http://localhost:3000/resource"){
+            return("Update resource")
+        } else if (window.location.href === "http://localhost:3000/report"){
+            return("Update report")
+        } else if ((window.location.href === "http://localhost:3000/attendance")){
+            return("Update attendance")
+        } else if (window.location.href === "http://localhost:3000/participation"){
+            return("Update attendance")
+        } else if ((window.location.href === "http://localhost:3000/eventclander")){
+            return("Update ")
+        }
+
+
+        if(window.location.href === "http://localhost:3001/usermanagement"){
+            return("Update user")
+        } else if (window.location.href === "http://localhost:3001/event"){
+            return("Update event")
+        } else if (window.location.href === "http://localhost:3001/resource"){
+            return("Update resource")
+        } else if (window.location.href === "http://localhost:3001/report"){
+            return("Update report")
+        } else if ((window.location.href === "http://localhost:3001/attendance")){
+            return("Update attendance")
+        } else if (window.location.href === "http://localhost:3001/participation"){
+            return("Update attendance")
+        } else if ((window.location.href === "http://localhost:3001/eventclander")){
+            return("Update ")
+        }
+
+    }
+
     return (
         <div className="table-container">
             {/* Update Form Modal */}
@@ -268,14 +352,17 @@ const Table = ({ userData, tableHeading, tableButton }) => {
                     <div className="update-form-overlay" onClick={() => setUpdateClick(false)}></div>
                     <div className="update-form" onClick={(e) => e.stopPropagation()}>
                         <button className="close-button" onClick={() => setUpdateClick(false)}>X</button>
-                        <h2>Update User</h2>
+                        
+                        <h2>{
+                           updateHeader()
+                        }</h2>
                         <form onSubmit={(e) => handleUpdateSubmit(e, selectedData["_id"])}>
                             {Object.keys(selectedData).map((key) =>
                                 key !== '_id' && key !== "__v" && key !== "password" && (
                                     
                                     <div className="form-group" key={key}>
-                                        <label>{key}</label>{key === "attendance"?
-                                        ( <select 
+                                        {!(userType.isStudent && key === "attendance" ) &&<label>{key}</label>}{key === "attendance"?
+                                        (<>{ !userType.isStudent && <select 
                                             name="attendance" 
                                             value={formData[key] || ''} 
                                             onChange={handleUpdateChange}
@@ -283,7 +370,7 @@ const Table = ({ userData, tableHeading, tableButton }) => {
                                             <option value="" disabled>Select Attendance</option>
                                             <option value="Present">Present</option>
                                             <option value="Absent">Absent</option>
-                                        </select> )
+                                        </select>}</> )
                                         :                                    
                                     (<input
                                             type="text"
@@ -306,7 +393,9 @@ const Table = ({ userData, tableHeading, tableButton }) => {
                     <div className="update-form-overlay" onClick={() => setCreateClick(false)}></div>
                     <div className="update-form" onClick={(e) => e.stopPropagation()}>
                         <button className="close-button" onClick={() => setCreateClick(false)}>X</button>
-                        <h2>Create New User</h2>
+                        <h2>{
+                           createHeader()
+                        }</h2>
                         <form onSubmit={handleCreateSubmit}>
                             {(window.location.href === "http://localhost:3000/usermanagement" || window.location.href === "http://localhost:3001/usermanagement")&&<>
                             <div className="form-group">
@@ -411,7 +500,7 @@ const Table = ({ userData, tableHeading, tableButton }) => {
                             </div>
                             <div className="form-group">
                                 <label>Attendance</label>
-                                <select 
+                             {   <select 
         name="attendance" 
         value={createFormData.attendance || 'Absent'} 
         onChange={handleCreateChange}
@@ -419,10 +508,31 @@ const Table = ({ userData, tableHeading, tableButton }) => {
         <option value="" disabled>Select Attendance</option>
         <option value="Present">Present</option>
         <option value="Absent">Absent</option>
-    </select> </div>
+    </select>} </div>
                                                     
                            </>
                                 }
+                                {(window.location.href === "http://localhost:3000/participation" ||  window.location.href === "http://localhost:3001/participation")&&<>
+                                    <div className="form-group">
+                                <label>Club Name</label>
+                                <input type="text" name="clubName" value={createFormData.clubName || ''} onChange={handleCreateChange} />
+                            </div> 
+                            <div className="form-group">
+                                <label>Event Name</label>
+                                <input type="text" name="eventName" value={createFormData.eventName|| ''} onChange={handleCreateChange} />
+                            </div>
+                            <div className="form-group">
+                                <label>Name</label>
+                                <input type="text" name="Name" value={createFormData.Name|| ''} onChange={handleCreateChange} />
+                            </div>
+                            <div className="form-group">
+                                <label>Roll Number</label>
+                                <input type="text" name="rollno" value={createFormData.rollno|| ''} onChange={handleCreateChange} />
+                            </div>
+                            <div className="form-group">
+                                <input type="hidden" name="attendance" value={createFormData.attendance || 'Absent'} /> </div>
+                                                    
+                           </>}
                                 {(window.location.href === "http://localhost:3000/eventclander" ||  window.location.href === "http://localhost:3001/eventclander")&&<>
                                     <div className="form-group">
                                 <label>Club Name</label>
@@ -493,25 +603,37 @@ const Table = ({ userData, tableHeading, tableButton }) => {
                             {d.rollno && <td>{d.rollno}</td>}
                             {d.attendance && <td>{d.attendance}</td>}
                             {d.feedback && <td>{d.feedback}</td>}
+
                             {!(window.location.href === "http://localhost:3000/feedback" || window.location.href === "http://localhost:3001/feedback") &&(userType.isAdmin || userType.isFaculty) && (
                                 <td className='tableButton' onClick={() => buttonAction(d._id, "Update")}>
                                     <span className='btnflex'>{tableButton.b2}</span>
                                 </td>
                             )}
+
                             {!(window.location.href === "http://localhost:3000/feedback" || window.location.href === "http://localhost:3001/feedback" ) &&(userType.isAdmin || userType.isFaculty) && (
                                 <td className='tableButton' onClick={() => buttonAction(d._id, "Delete")}>
                                     <span className='btnflex'>{tableButton.b3}</span>
                                 </td>
                             )}
 
-{(window.location.href === "http://localhost:3000/feedback" || window.location.href === "http://localhost:3001/feedback") &&(userType.isStudent) && (
+                            {(window.location.href === "http://localhost:3000/feedback" || window.location.href === "http://localhost:3001/feedback") &&(userType.isStudent) && (
                                 <td className='tableButton' onClick={() => buttonAction(d._id, "Update")}>
                                     <span className='btnflex'>{tableButton.b2}</span>
                                 </td>
                             )}
-                            {(window.location.href === "http://localhost:3000/feedback" || window.location.href === "http://localhost:3001/feedback" ) &&(userType.isStudent) && (
+                            {(window.location.href === "http://localhost:3000/participation" || window.location.href === "http://localhost:3001/participation") &&(userType.isStudent) && (
+                                <td className='tableButton' onClick={() => buttonAction(d._id, "Update")}>
+                                    <span className='btnflex'>{tableButton.b2}</span>
+                                </td>
+                            )}
+                            {(window.location.href === "http://localhost:3000/participation" || window.location.href === "http://localhost:3001/participation") &&(userType.isStudent) && (
                                 <td className='tableButton' onClick={() => buttonAction(d._id, "Delete")}>
                                     <span className='btnflex'>{tableButton.b3}</span>
+                                </td>
+                            )}
+                            {(window.location.href === "http://localhost:3000/event" || window.location.href === "http://localhost:3001/event" ) &&(userType.isFaculty) && (
+                                <td className='tableButton' onClick={() => buttonAction(d._id, "QR")}>
+                                    <span className='btnflex'>QR Code</span>
                                 </td>
                             )}
 
@@ -522,10 +644,13 @@ const Table = ({ userData, tableHeading, tableButton }) => {
             </table>
                     <div style={{display:'flex',gap:"10px"}} >
             {/* Create Button (Only for Admins) */}
-            {!(window.location.href === "http://localhost:3000/feedback" || window.location.href === "http://localhost:3001/feedback" ) && (userType.isFaculty || userType.isAdmin)  && (
+            {!(window.location.href === "http://localhost:3000/feedback" || window.location.href === "http://localhost:3001/feedback" ) && (userType.isFaculty || userType.isAdmin) && (!(userType.isAdmin && (window.location.href === "http://localhost:3000/event" || window.location.href === "http://localhost:3001/event" )))  && (
                 <button className='btnflex' id='createBtn' onClick={() => buttonAction(null, "Create")}>Create</button>
             )}
-           {(window.location.href === "http://localhost:3000/eventclander" || window.location.href === "http://localhost:3001/eventclander" ) && (userType.isStudent)  && (
+           {/* {(window.location.href === "http://localhost:3000/eventclander" || window.location.href === "http://localhost:3001/eventclander" ) && (userType.isStudent)  && (
+                <button className='btnflex' id='createBtn' onClick={() => buttonAction(null, "Create")}>Create</button>
+            )} */}
+            {(window.location.href === "http://localhost:3000/participation" || window.location.href === "http://localhost:3001/participation" ) && (userType.isStudent)  && (
                 <button className='btnflex' id='createBtn' onClick={() => buttonAction(null, "Create")}>Create</button>
             )}
             {(window.location.href === "http://localhost:3000/resource" || window.location.href === "http://localhost:3001/resource") && <button onClick={exportToExcel} className="btnflex" id='createBtn' >Export to Excel</button>}</div>

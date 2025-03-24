@@ -492,11 +492,11 @@ const PDFListComponent = () => {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
+      <Typography variant="h4" component="h1" gutterBottom color='primary'>
        Documents
       </Typography>
       
-      {/* Search and filter bar */}
+      {/* Search and filter bar
       <Paper sx={{ p: 2, mb: 2 }}>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} sm={6}>
@@ -527,7 +527,7 @@ const PDFListComponent = () => {
             </Button>
           </Grid>
         </Grid>
-      </Paper>
+      </Paper> */}
       
       {/* Error message */}
       {error && (
