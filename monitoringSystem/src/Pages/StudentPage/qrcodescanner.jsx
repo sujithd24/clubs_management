@@ -1,21 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 
 const QrCodeScanner = () => {
   const [scanResult, setScanResult] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const scannerRef = useRef(null);
 
-  useEffect(() => {
+  const initializeScanner = () => {
+    // Clear previous scanner from DOM and memory
+    if (scannerRef.current) {
+      scannerRef.current.clear().catch((err) =>
+        console.error("Failed to clear scanner before re-init:", err)
+      );
+    }
+
+    // Clear the #reader div's content to prevent duplicates
+    const readerElement = document.getElementById("reader");
+    if (readerElement) {
+      readerElement.innerHTML = "";
+    }
+
+    // Create and render new scanner instance
     const scanner = new Html5QrcodeScanner("reader", {
-      fps: 10, // Increased FPS for better scanning
-      qrbox: { width: 250, height: 250 }, // Adjustable scan area
-      aspectRatio: 1.0, // Square scanning area
+      fps: 10,
+      qrbox: { width: 250, height: 250 },
+      aspectRatio: 1.0,
     });
 
     scanner.render(
       (decodedText) => {
         setScanResult(decodedText);
-        scanner.clear(); // Stop scanning after a successful scan
+        scanner.clear().catch((err) =>
+          console.error("Failed to clear scanner after success:", err)
+        );
       },
       (error) => {
         setErrorMessage("QR Code not found. Try again.");
@@ -23,10 +40,28 @@ const QrCodeScanner = () => {
       }
     );
 
+    scannerRef.current = scanner;
+  };
+
+  useEffect(() => {
+    initializeScanner();
+
     return () => {
-      scanner.clear();
+      if (scannerRef.current) {
+        scannerRef.current.clear().catch((err) =>
+          console.error("Failed to clear scanner on unmount:", err)
+        );
+      }
     };
   }, []);
+
+  const handleScanAgain = () => {
+    setScanResult(null);
+    setErrorMessage("");
+    setTimeout(() => {
+      initializeScanner(); // Re-init scanner after reset
+    }, 100);
+  };
 
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
@@ -39,8 +74,12 @@ const QrCodeScanner = () => {
       ) : (
         <div>
           <h3>Scanned Result:</h3>
-          <p>{scanResult}</p>
-          <button onClick={() => window.location.reload()}>Scan Again</button>
+          <p>
+            <a href={scanResult} target="_blank" rel="noopener noreferrer">
+              {scanResult}
+            </a>
+          </p>
+          <button onClick={handleScanAgain}>Scan Again</button>
         </div>
       )}
     </div>

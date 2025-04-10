@@ -59,7 +59,9 @@
     display: flex;
     border-radius: 30px;
     cursor: pointer;
-    height: 50px;
+    height: 40px;
     align-items: center;
     margin-top: 5px;
+    width: 360px;
+    justify-content: center;
   }
