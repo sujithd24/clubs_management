@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (formData) => {
     try {
       const res = await axios.post('http://localhost:5000/api/user/login', formData, { withCredentials: true });
-
+console.log(res.data)
       if (res.data.usertype === 'admin') {
         setUserType({ isAdmin: true, isStudent: false, isFaculty: false });
         setUser('admin');
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ userType,setUserType, user, login, logout ,fetchid , setFetchid , addValue}}>
+    <AuthContext.Provider value={{ userType,setUserType, user,setUser, login, logout ,fetchid , setFetchid , addValue}}>
       {children}
     </AuthContext.Provider>
   );

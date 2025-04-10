@@ -3,11 +3,15 @@ import { AuthData } from './AuthContext';
 import './form.css';
 import { useNavigate } from 'react-router-dom';
 import bitlogo from "../../assets/bit-logo.png";
+import { auth , googleAuthProvider } from "./firebase/FireBase";
+import { signInWithPopup ,signInWithEmailAndPassword } from "firebase/auth";
+import GoogleSvg from "../../assets/icons8-google.svg";
+
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const navigate = useNavigate()
-  const { login , userType }  = AuthData();
+  const { login , userType , setUserType ,setUser }  = AuthData();
 
   const handleChange = (e) => { 
     const { name, value } = e.target; 
@@ -27,6 +31,27 @@ const Login = () => {
       console.log(e)
     }
     
+  };
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithPopup(auth, googleAuthProvider).then(
+        async() => {
+          await setUserType({ isAdmin: false, isStudent: true, isFaculty: false });
+          await setUser('student');
+          window.location.href='/'
+        }
+      );
+  
+  
+    } catch (error) {
+      const errorCode = error.code; 
+      const errorMessage = error.message; 
+      if (errorCode === 'auth/cancelled-popup-request') { 
+        console.warn('Popup request was cancelled.'); 
+      } else { 
+        console.error('Error signing in:', errorCode, errorMessage);
+    }
+    }
   };
 
 
@@ -60,8 +85,15 @@ const Login = () => {
             required
           />
         </div>
+        
         <button type="submit" className="login-button" >Login</button>
+        <p style={{width:"100%",textAlign:"center"}}>or</p>
+        <button type="button" className='googleBtn' onClick={() => handleGoogleSignIn()}>
+            <img src={GoogleSvg} alt="goole" height={"30px"} />
+            Log In with Google
+        </button>
       </form>
+      
     </div>
     </div>
   );
